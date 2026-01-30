@@ -1,0 +1,57 @@
+name: Sync ServiceNow Dev Instance to AI Repo
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout child repo (this repo)
+      - name: Checkout child repo
+        uses: actions/checkout@v4
+
+      # 2️⃣ Checkout AI repo
+      - name: Checkout AI repo
+        uses: actions/checkout@v4
+        with:
+          repository: Dolo85/servicenow-ai-codebase
+          path: ai-repo
+          token: ${{ secrets.AI_REPO_TOKEN }}
+
+      # 3️⃣ Setup Node
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # 4️⃣ Install AI repo dependencies
+      - name: Install dependencies
+        working-directory: ai-repo
+        run: npm install
+
+      # 5️⃣ Normalize Script Includes
+      - name: Normalize Script Includes
+        run: |
+          node ai-repo/scripts/normalize-script-includes.js \
+            $GITHUB_WORKSPACE \
+            ai-repo/apps/x_company_dev316185
+
+      # 6️⃣ Commit & push to AI repo
+      - name: Commit and push changes
+        working-directory: ai-repo
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+
+          git add apps/x_company_dev316185
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "sync: dev316185 normalized ServiceNow code"
+            git push
+          fi
