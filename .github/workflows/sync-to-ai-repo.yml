@@ -3,7 +3,7 @@ name: Sync ServiceNow Dev Instance to AI Repo
 on:
   push:
     branches:
-      - main
+      - sn_instances/dev316185
 
 jobs:
   sync:
