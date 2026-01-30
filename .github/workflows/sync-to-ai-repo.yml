@@ -42,7 +42,7 @@ jobs:
       - name: Copy raw source into AI repo (debug)
         run: |
           mkdir -p ai-repo/raw/sn_instances_dev316185
-          cp -R . ai-repo/raw/sn_instances_dev316185
+          rsync -av --exclude='ai-repo' ./ ai-repo/raw/sn_instances_dev316185/
 
       # 6️⃣ Commit & push to AI repo
       - name: Commit and push changes
