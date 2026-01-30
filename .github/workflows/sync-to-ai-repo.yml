@@ -34,11 +34,11 @@ jobs:
         run: npm install
 
       # 5️⃣ Normalize Script Includes
-      - name: Normalize Script Includes
-        run: |
-          node ai-repo/scripts/normalize-script-includes.js \
-            $GITHUB_WORKSPACE \
-            ai-repo/apps/x_company_dev316185
+     # - name: Normalize Script Includes
+     #   run: |
+       #   node ai-repo/scripts/normalize-script-includes.js \
+          #  $GITHUB_WORKSPACE \
+           # ai-repo/apps/x_company_dev316185
 
       # 6️⃣ Commit & push to AI repo
       - name: Commit and push changes
