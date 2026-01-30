@@ -32,16 +32,16 @@ jobs:
         working-directory: ai-repo
         run: npm install
 
-      # 4️⃣ Normalize Script Includes
+      # 5️⃣ Normalize Script Includes
+        # - name: Normalize Script Includes
+     #   run: |
+       #   node ai-repo/scripts/normalize-script-includes.js \
+          #  $GITHUB_WORKSPACE \
+           # ai-repo/apps/x_company_dev316185
       - name: Copy raw source into AI repo (debug)
         run: |
           mkdir -p ai-repo/raw/sn_instances_dev316185
           rsync -av --exclude='ai-repo' ./ ai-repo/raw/sn_instances_dev316185/
-     # - name: Normalize Script Includes
-       # run: |
-         # node ai-repo/scripts/normalize-script-includes.js \
-        #    . \
-         #   ai-repo/apps/sn_instances_dev316185
 
       # 5️⃣ Commit & push to AI repo
       - name: Commit and push to AI repo
