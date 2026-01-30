@@ -43,6 +43,13 @@ jobs:
           mkdir -p ai-repo/raw/sn_instances_dev316185
           rsync -av --exclude='ai-repo' ./ ai-repo/raw/sn_instances_dev316185/
 
+      # Temp
+      - name: Create proof file in AI repo
+        working-directory: ai-repo
+        run: |
+          mkdir -p raw/sn_instances_dev316185
+          echo "SYNC PROOF $(date)" > raw/sn_instances_dev316185/README.txt
+
       # 5️⃣ Commit & push to AI repo
       - name: Commit and push to AI repo
         working-directory: ai-repo
@@ -51,5 +58,9 @@ jobs:
           git config user.email "github-actions@github.com"
 
           git add .
-          git commit -m "Sync from sn_instances/dev316185" || echo "No changes to commit"
+          git commit -m "Proof write to AI repo" || echo "No changes"
           git push
+
+         # git add .
+          #git commit -m "Sync from sn_instances/dev316185" || echo "No changes to commit"
+         # git push
